@@ -1,0 +1,27 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/bushnastyaa/js-react-developer-project-12/workflows/hexlet-check/badge.svg)](https://github.com/bushnastyaa/js-react-developer-project-12/actions)",
+  "main": "frontend/src/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/build",
+    "server": "start-server -a localhost",
+    "postinstall": "cd frontend && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bushnastyaa/js-react-developer-project-12.git"
+  },
+  "keywords": [],
+  "author": "Anastasia Bushmakina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bushnastyaa/js-react-developer-project-12/issues"
+  },
+  "homepage": "https://github.com/bushnastyaa/js-react-developer-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  }
+}
