@@ -10,7 +10,7 @@ import {
 
 import FormLogin from './FormLogin.jsx';
 
-function Login() {
+function LoginPage() {
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -35,4 +35,4 @@ function Login() {
   );
 };
 
-export default Login;
+export default LoginPage;
