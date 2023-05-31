@@ -1,12 +1,13 @@
-import React, { useState, useNavigate } from 'react';
+import React, { 
+  useState, 
+  useNavigate, 
+  useEffect, 
+  useRef,
+} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import {
-  Button,
-  Form,
-  Alert,
-} from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
 
@@ -30,6 +31,11 @@ function FormLogin() {
   const [existingUser, setExistingUser] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
@@ -43,11 +49,13 @@ function FormLogin() {
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
+          inputRef.current.select();
           setAuthFailed(true);
           return;
         }
 
         if (err.isAxiosError && err.response.status === 409) {
+          inputRef.current.select();
           setAuthFailed(true);
           setExistingUser(true);
           return;
@@ -74,6 +82,7 @@ function FormLogin() {
           type="text"
           placeholder="Имя пользователя"
           autoComplete="username"
+          ref={inputRef}
           onChange={onChange}
           value={formik.values.username}
           isInvalid={(!!formik.errors.username && existingUser) || authFailed}
