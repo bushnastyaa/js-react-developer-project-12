@@ -8,6 +8,8 @@ import {
 
 import useAuth from '../hooks/useAuth';
 import { AuthProvider } from '../contexts/AuthContext.jsx';
+import { ChatProvider } from '../contexts/ChatContext.jsx';
+import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/loginPage/LoginPage.jsx';
 import PageNotFound from '../pages/pageNotFound/PageNotFound.jsx';
 
@@ -19,16 +21,27 @@ function Login({ children }) {
   );
 };
 
-function App() {
+function App({ socket }) {
   return (
     <AuthProvider>
       <BrowserRouter>
         <div className="d-flex flex-column h-100">
+
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route 
+              path="/"
+              element={(
+                <ChatProvider socket={socket}>
+                  <Login>
+                    <HomePage />
+                  </Login>
+                </ChatProvider>
+              )} 
+            />
             <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
+
         </div>
       </BrowserRouter>
     </AuthProvider>
