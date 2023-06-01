@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 import useChat from '../../../hooks/useChat';
 
 function MessageForm() {
@@ -10,6 +11,7 @@ function MessageForm() {
   const { sendMessage } = useChat();
   const inputRef = useRef(null);
   const { username } = JSON.parse(localStorage.getItem('userInfo'));
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: { message: '' },
@@ -32,8 +34,8 @@ function MessageForm() {
         <InputGroup>
           <Form.Control
             name="messsage"
-            aria-label="Новое сообщение"
-            placeholder="Введите сообщение..."
+            placeholder={t('chat.message')}
+            aria-label={t('chat.newMessage')}
             className="border-0 p-0 ps-2 form-control"
             ref={inputRef}
             value={formik.values.message}
@@ -47,7 +49,7 @@ function MessageForm() {
             disabled={!formik.values.message.length > 0}
           >
             <ArrowRightSquare size="20" />
-            <span className="visually-hidden">Отправить</span>
+            <span className="visually-hidden">{t('modal.send')}</span>
           </Button>
         </InputGroup>
       </Form>

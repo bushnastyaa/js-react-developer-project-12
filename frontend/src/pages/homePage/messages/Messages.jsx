@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelectors } from '../../../slices/channelsSlice.js'
 import MessageList from './MessageList.jsx';
 import MessageForm from './MessageForm.jsx'
 
 function Messages() {
+  const { t } = useTranslation();
   const { currentChannelId, allMessages } = useSelector((state) => ({
     currentChannelId: state.channels.currentChannelId,
     allMessages: Object.values(state.messages.entities),
@@ -22,7 +24,7 @@ function Messages() {
             # 
             {currentChannel.name}
           </p>
-          <span className="text-muted">{messages.length}</span>
+          <span className="text-muted">{ t('chat.count', { count: messages.length }) }</span>
         </div>
         <MessageList messages={messages} />
         <MessageForm />

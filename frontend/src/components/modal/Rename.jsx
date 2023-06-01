@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import useChat from '../../hooks/useChat';
 import { selectors } from '../../slices/channelsSlice.js';
@@ -14,6 +15,7 @@ function Rename({ onHide }) {
   const channelsName = useSelector(selectors.selectAll).map(({ name }) => name);
   const inputRef = useRef(null);
   const { renameChannel } = useChat();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -22,10 +24,10 @@ function Rename({ onHide }) {
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channelsName, 'Имя должно быть уникальным'),
+      .required(t('signup.required'))
+      .min(3, t('signup.outOfLenght'))
+      .max(20, t('signup.outOfLenght'))
+      .notOneOf(channelsName, t('modal.uniq')),
   });
 
   const handleClose = () => {
@@ -45,7 +47,7 @@ function Rename({ onHide }) {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.rename')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -61,16 +63,16 @@ function Rename({ onHide }) {
             disabled={formik.isSubmitting}
             isInvalid={(formik.touched.name && !!formik.errors.name)}
           />
-          <Form.Label className="visually-hidden" htmlFor="name">Название канала</Form.Label>
+          <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
           <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
 
           <div className="d-flex justify-content-end">
             <Button variant="secondary" className="me-2" onClick={handleClose}>
-              Отменить
+              {t('modal.cancel')}
             </Button>
 
             <Button type="submit" variant="primary">
-              Отправить
+              {t('modal.send')}
             </Button>
           </div>
         </Form>

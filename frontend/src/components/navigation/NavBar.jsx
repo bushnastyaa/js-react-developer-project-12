@@ -1,17 +1,19 @@
 import React from 'react';
 import { Container, Navbar, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import useAuth from '../../hooks/useAuth';
 
 function LogOut() {
   const { loggedIn, logOut } = useAuth();
+  const { t } = useTranslation();
 
   return (
     loggedIn
       ? (
         <Button variant="outline-secondary" size="sm" onClick={logOut}>
-          Выйти
+          { t('logout') }
         </Button>
       )
       : null

@@ -8,27 +8,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
-
-const validationSchema = Yup.object().shape({
-  username: Yup
-    .string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-  password: Yup
-    .string()
-    .min(6, 'Не менее 6 символов')
-    .required('Обязательное поле'),
-  passwordConfirm: Yup
-    .string()
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
-});
 
 function FormLogin() {
   const [authFailed, setAuthFailed] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
+  const { t } = useTranslation();
   const auth = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef(null);
@@ -36,6 +23,21 @@ function FormLogin() {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const validationSchema = Yup.object().shape({
+    username: Yup
+      .string()
+      .min(3, t('signup.outOfLenght'))
+      .max(20, t('signup.outOfLenght'))
+      .required(t('signup.required')),
+    password: Yup
+      .string()
+      .min(6, t('signup.passMin'))
+      .required(t('signup.required')),
+    passwordConfirm: Yup
+      .string()
+      .oneOf([Yup.ref('password'), null], t('signup.mustMatch')),
+  });
 
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
@@ -75,12 +77,12 @@ function FormLogin() {
 
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t('signup.header')}</h1>
       <Form.Group className="form-floating mb-3" controlId="username">
         <Form.Control
           name="username"
           type="text"
-          placeholder="Имя пользователя"
+          placeholder={t('signup.username')}
           autoComplete="username"
           ref={inputRef}
           onChange={onChange}
@@ -88,7 +90,7 @@ function FormLogin() {
           isInvalid={(!!formik.errors.username && existingUser) || authFailed}
           disabled={formik.isSubmitting}
         />
-        <Form.Label>Имя пользователя</Form.Label>
+        <Form.Label>{t('signup.username')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>
       </Form.Group>
 
@@ -96,14 +98,14 @@ function FormLogin() {
         <Form.Control
           name="password"
           type="password"
-          placeholder="Пароль"
+          placeholder={t('signup.password')}
           autoComplete="new-password"
           onChange={formik.handleChange}
           value={formik.values.password}
           isInvalid={(!!formik.errors.password && formik.touched.password) || authFailed}
           disabled={formik.isSubmitting}
         />
-        <Form.Label>Пароль</Form.Label>
+        <Form.Label>{t('signup.password')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>
       </Form.Group>
 
@@ -111,7 +113,7 @@ function FormLogin() {
         <Form.Control
           name="passwordConfirm"
           type="password"
-          placeholder="Подтвердите пароль"
+          placeholder={t('signup.confirmPassword')}
           autoComplete="new-password"
           onChange={formik.handleChange}
           value={formik.values.passwordConfirm}
@@ -120,11 +122,11 @@ function FormLogin() {
           }
           disabled={formik.isSubmitting}
         />
-        <Form.Label>Подтвердите пароль</Form.Label>
+        <Form.Label>{t('signup.confirmPassword')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.passwordConfirm}</Form.Control.Feedback>
       </Form.Group>
 
-      {existingUser ? <Alert variant="danger">Такой пользователь уже существует</Alert> : null}
+      {existingUser ? <Alert variant="danger">{t('signup.password')}</Alert> : null}
 
       <Button 
         type="submit" 
@@ -132,7 +134,7 @@ function FormLogin() {
         className="w-100 mb-3" 
         disabled={formik.isSubmitting}
       >
-        Зарегистрироваться
+        {t('signup.signup')}
       </Button>
     </Form>
   );

@@ -7,10 +7,13 @@ import {
   Card,
   Image,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import FormLogin from './FormLogin.jsx';
 
 function LoginPage() {
+  const { t } = useTranslation();
+
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -24,8 +27,8 @@ function LoginPage() {
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span className="px-1">Нет аккаунта?</span>
-                <Link to="/signup">Регистрация</Link>
+                <span className="px-1">{t('login.noAccount')}</span>
+                <Link to="/signup">{t('login.signup')}</Link>
               </div>
             </Card.Footer>
           </Card>

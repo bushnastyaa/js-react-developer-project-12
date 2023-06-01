@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../../slices/channelsSlice.js';
 
 function Channel({
   handleRemove, handleRename, channelData, currentChannelId,
 }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { id, name, removable } = channelData;
   const isActive = id === currentChannelId;
@@ -26,12 +28,12 @@ function Channel({
           </Button>
 
           <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
-            <span className="visually-hidden">Управление каналом</span>
+            <span className="visually-hidden">{t('chat.manage')}</span>
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleRemove(id)}>Удалить</Dropdown.Item>
-            <Dropdown.Item onClick={handleRename(id)}>Переименовать</Dropdown.Item>
+            <Dropdown.Item onClick={handleRemove(id)}>{t('chat.remove')}</Dropdown.Item>
+            <Dropdown.Item onClick={handleRename(id)}>{t('chat.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       ) : (
