@@ -4,9 +4,11 @@ import { Container, Row } from 'react-bootstrap';
 
 import { actions as channelsActions } from '../../slices/channelsSlice.js';
 import { actions as messagesActions } from '../../slices/messagesSlice.js';
+import { open, close } from '../../slices/modalSlice.js';
 import fetchData from '../../routes/fetchData';
 import Channels from './channels/Channels.jsx';
 import Messages from './messages/Messages.jsx';
+import Modal from '../../components/modal/Modal.jsx';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -22,13 +24,24 @@ function HomePage() {
       });
   });
 
+  const handleOpen = (type, id = null) => () => {
+    dispatch(open({ type, id }));
+  };
+
+  const handleClose = () => {
+    dispatch(close());
+  };
+
   return (
-    <Container className="h-100 my-4 overflow-hidden rounded shadow">
-      <Row className="h-100 bg-white flex-md-row">
-        <Channels />
-        <Messages />
-      </Row>
-    </Container>
+    <>
+      <Container className="h-100 my-4 overflow-hidden rounded shadow">
+        <Row className="h-100 bg-white flex-md-row">
+          <Channels handleOpen={handleOpen} />
+          <Messages />
+        </Row>
+      </Container>
+      <Modal onHide={handleClose} />
+    </>
   );
 };
 
