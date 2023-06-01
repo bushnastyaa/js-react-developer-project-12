@@ -6,6 +6,7 @@ import { actions as channelsActions } from '../../slices/channelsSlice.js';
 import { actions as messagesActions } from '../../slices/messagesSlice.js';
 import fetchData from '../../routes/fetchData';
 import Channels from './channels/Channels.jsx';
+import Messages from './messages/Messages.jsx';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function HomePage() {
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row">
         <Channels />
+        <Messages />
       </Row>
     </Container>
   );
