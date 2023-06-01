@@ -4,11 +4,14 @@ import { useSelector } from 'react-redux';
 import { PlusSquare } from 'react-bootstrap-icons';
 import Channel from './Channel.jsx';
 
-function Channels() {
+function Channels({ handleOpen }) {
   const { channels, currentChannelId } = useSelector((state) => ({
     channels: Object.values(state.channels.entities),
     currentChannelId: state.channels.currentChannelId,
   }));
+  const handleAdd = () => handleOpen('addChannel');
+  const handleRename = (id) => handleOpen('renameChannel', id);
+  const handleRemove = (id) => handleOpen('removeChannel', id);
 
   return (
     <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -17,6 +20,7 @@ function Channels() {
         <Button
           variant="link"
           className="p-0 text-primary btn btn-group-vertical"
+          onClick={handleAdd()}
         >
           <PlusSquare />
           <span className="visually-hidden">+</span>
@@ -27,6 +31,8 @@ function Channels() {
         {channels.map((channel) => (
           <Channel
             key={channel.id}
+            handleRename={handleRename}
+            handleRemove={handleRemove}
             currentChannelId={currentChannelId}
             channelData={{ ...channel }}
           />

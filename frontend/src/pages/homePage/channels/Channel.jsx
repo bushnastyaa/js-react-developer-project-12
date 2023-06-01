@@ -4,11 +4,13 @@ import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 
 import { actions } from '../../../slices/channelsSlice.js';
 
-function Channel({ channelData, currentChannelId, }) {
+function Channel({
+  handleRemove, handleRename, channelData, currentChannelId,
+}) {
   const dispatch = useDispatch();
   const { id, name, removable } = channelData;
   const isActive = id === currentChannelId;
-  const variant = isActive ? 'outline-primary' : null;
+  const variant = isActive ? 'secondary' : 'light';
 
   const handleSelect = (currentId) => () => {
     dispatch(actions.setCurrentChannel(currentId));
@@ -28,8 +30,8 @@ function Channel({ channelData, currentChannelId, }) {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item>Удалить</Dropdown.Item>
-            <Dropdown.Item>Переименовать</Dropdown.Item>
+            <Dropdown.Item onClick={handleRemove(id)}>Удалить</Dropdown.Item>
+            <Dropdown.Item onClick={handleRename(id)}>Переименовать</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       ) : (
