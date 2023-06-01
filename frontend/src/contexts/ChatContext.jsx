@@ -10,7 +10,7 @@ import { actions as messagesActions } from '../slices/messagesSlice.js';
 
 export const ChatContext = createContext({});
 
-export function ChatApiProvider({ socket, children }) {
+export function ChatProvider({ socket, children }) {
   useEffect(() => {
     socket.on('addMessage', (payload) => {
       store.dispatch(messagesActions.addMessage(payload));

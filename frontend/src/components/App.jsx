@@ -9,8 +9,10 @@ import {
 import useAuth from '../hooks/useAuth';
 import { AuthProvider } from '../contexts/AuthContext.jsx';
 import { ChatProvider } from '../contexts/ChatContext.jsx';
-import HomePage from '../pages/HomePage.jsx';
+import NavBar from './navigation/NavBar.jsx';
+import HomePage from '../pages/homePage/HomePage.jsx';
 import LoginPage from '../pages/loginPage/LoginPage.jsx';
+import SignUpPage from '../pages/signUpPage/SignUpPage.jsx'
 import PageNotFound from '../pages/pageNotFound/PageNotFound.jsx';
 
 function Login({ children }) {
@@ -26,6 +28,7 @@ function App({ socket }) {
     <AuthProvider>
       <BrowserRouter>
         <div className="d-flex flex-column h-100">
+          <NavBar />
 
           <Routes>
             <Route 
@@ -39,6 +42,7 @@ function App({ socket }) {
               )} 
             />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
 
