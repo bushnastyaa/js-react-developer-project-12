@@ -6,20 +6,16 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
+import { selectors } from '../../slices/channelsSlice.js';
 import useChat from '../../hooks/useChat';
 
 const Add = ({ onHide }) => {
-  const { t } = useTranslation();
   const [show, setShow] = useState(true);
-  const { channels, channelId } = useSelector((state) => ({
-    channels: Object.values(state.channels.entities),
-    channelId: state.modal.channelId,
-  }));
-  const channelsName = channels.map(({ name }) => name);
-  const currentChannel = channels.find((channel) => channel.id === channelId);
-  const { id, name } = currentChannel;
+  const channelsName = useSelector(selectors.selectAll).map(({ name }) => name);
 
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const { addChannel } = useChat();
 
@@ -41,12 +37,20 @@ const Add = ({ onHide }) => {
     onHide();
   };
 
+  const submitCb = () => {
+    handleClose();
+    toast.success(t('modal.created'));
+  };
+
   const formik = useFormik({
-    initialValues: { name },
+    initialValues: { name: '' },
     validationSchema,
-    onSubmit: ({ name: newName }) => {
-      addChannel({ id, newName });
-      handleClose();
+    onSubmit: ({ name }) => {
+      try {
+        addChannel(name, submitCb);
+      } catch (err) {
+        toast.error(t('errors.noConnection'));
+      }
     },
   });
 

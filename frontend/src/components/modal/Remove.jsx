@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import useChat from '../../hooks/useChat';
 
@@ -16,8 +17,13 @@ const Remove = ({ onHide }) => {
     onHide();
   };
 
+  const submitCb = () => {
+    handleClose();
+    toast.success(t('modal.removed'));
+  };
+
   const handleRemove = () => {
-    removeChannel(channelId);
+    removeChannel(channelId, submitCb);
   };
 
   return (

@@ -6,13 +6,20 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useChat from '../../hooks/useChat';
-import { selectors } from '../../slices/channelsSlice.js';
 
 const Rename = ({ onHide }) => {
   const [show, setShow] = useState(true);
-  const channelsName = useSelector(selectors.selectAll).map(({ name }) => name);
+  const { channels, channelId } = useSelector((state) => ({
+    channels: Object.values(state.channels.entities),
+    channelId: state.modal.channelId,
+  }));
+  const channelsName = channels.map(({ name }) => name);
+  const currentChannel = channels.find((channel) => channel.id === channelId);
+  const { id, name } = currentChannel;
+
   const inputRef = useRef(null);
   const { renameChannel } = useChat();
   const { t } = useTranslation();
@@ -35,12 +42,20 @@ const Rename = ({ onHide }) => {
     onHide();
   };
 
+  const submitCb = () => {
+    handleClose();
+    toast.success(t('modal.renamed'));
+  };
+
   const formik = useFormik({
-    initialValues: { name: '' },
+    initialValues: { name },
     validationSchema,
-    onSubmit: ({ name }) => {
-      renameChannel(name);
-      handleClose();
+    onSubmit: ({ name: newName }) => {
+      try {
+        renameChannel({ id, name: newName }, submitCb);
+      } catch (err) {
+        toast.error(t('errors.noConnection'));
+      }
     },
   });
 
