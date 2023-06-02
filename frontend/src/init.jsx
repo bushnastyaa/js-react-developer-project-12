@@ -3,6 +3,8 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { io } from 'socket.io-client';
 import React from 'react';
 import { Provider } from 'react-redux';
+import leoProfanity from 'leo-profanity';
+
 import App from './components/App.jsx';
 import store from './slices/index.js';
 import en from './locales/en';
@@ -10,6 +12,8 @@ import ru from './locales/ru';
 
 const init = async () => {
   const socket = io('/');
+  const clear = leoProfanity.getDictionary('ru');
+  leoProfanity.add(clear);
   const i18n = i18next.createInstance(); 
 
   await i18n

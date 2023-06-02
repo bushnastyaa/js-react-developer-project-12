@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
 import { selectors } from '../../slices/channelsSlice.js';
 import useChat from '../../hooks/useChat';
@@ -47,7 +48,7 @@ const Add = ({ onHide }) => {
     validationSchema,
     onSubmit: ({ name }) => {
       try {
-        addChannel(name, submitCb);
+        addChannel(leoProfanity.clean(name), submitCb);
       } catch (err) {
         toast.error(t('errors.noConnection'));
       }

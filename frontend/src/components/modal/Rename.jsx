@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
 import useChat from '../../hooks/useChat';
 
@@ -52,7 +53,8 @@ const Rename = ({ onHide }) => {
     validationSchema,
     onSubmit: ({ name: newName }) => {
       try {
-        renameChannel({ id, name: newName }, submitCb);
+        const filteredName = leoProfanity.clean(newName);
+        renameChannel({ id, name: filteredName }, submitCb);
       } catch (err) {
         toast.error(t('errors.noConnection'));
       }
