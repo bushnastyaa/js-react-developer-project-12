@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { actions } from '../../../slices/channelsSlice.js';
 
-function Channel({
+const Channel = ({
   handleRemove, handleRename, channelData, currentChannelId,
-}) {
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { id, name, removable } = channelData;

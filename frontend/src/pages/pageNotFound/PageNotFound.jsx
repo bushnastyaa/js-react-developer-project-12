@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-function PageNotFound() {
+const PageNotFound = () => {
   const { t } = useTranslation();
 
   return (

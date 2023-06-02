@@ -6,7 +6,7 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import useChat from '../../../hooks/useChat';
 
-function MessageForm() {
+const MessageForm = () => {
   const currentChannelId = useSelector(({ channels }) => channels.currentChannelId);
   const { sendMessage } = useChat();
   const inputRef = useRef(null);
@@ -42,7 +42,7 @@ function MessageForm() {
             disabled={formik.isSubmitting}
             onChange={formik.handleChange}
           />
-          <Button 
+          <Button
             type="submit"
             variant="link"
             className="btn btn-group-vertical"

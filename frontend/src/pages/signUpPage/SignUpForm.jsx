@@ -1,7 +1,7 @@
-import React, { 
-  useState, 
-  useNavigate, 
-  useEffect, 
+import React, {
+  useState,
+  useNavigate,
+  useEffect,
   useRef,
 } from 'react';
 import { useFormik } from 'formik';
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
 
-function FormLogin() {
+const FormLogin = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
   const { t } = useTranslation();
@@ -73,7 +73,7 @@ function FormLogin() {
       setExistingUser(false);
     }
     formik.handleChange(e);
-  }
+  };
 
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
@@ -128,10 +128,10 @@ function FormLogin() {
 
       {existingUser ? <Alert variant="danger">{t('signup.password')}</Alert> : null}
 
-      <Button 
-        type="submit" 
-        variant="outline-primary" 
-        className="w-100 mb-3" 
+      <Button
+        type="submit"
+        variant="outline-primary"
+        className="w-100 mb-3"
         disabled={formik.isSubmitting}
       >
         {t('signup.signup')}

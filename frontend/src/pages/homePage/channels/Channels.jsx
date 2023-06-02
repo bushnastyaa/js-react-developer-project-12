@@ -5,7 +5,7 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import Channel from './Channel.jsx';
 
-function Channels({ handleOpen }) {
+const Channels = ({ handleOpen }) => {
   const { t } = useTranslation();
   const { channels, currentChannelId } = useSelector((state) => ({
     channels: Object.values(state.channels.entities),

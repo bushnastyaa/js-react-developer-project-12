@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 import FormLogin from './FormLogin.jsx';
 
-function LoginPage() {
+const LoginPage = () => {
   const { t } = useTranslation();
 
   return (

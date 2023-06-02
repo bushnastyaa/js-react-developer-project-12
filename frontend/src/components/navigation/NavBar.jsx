@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import useAuth from '../../hooks/useAuth';
 
-function LogOut() {
+const LogOut = () => {
   const { loggedIn, logOut } = useAuth();
   const { t } = useTranslation();
 
@@ -20,15 +20,13 @@ function LogOut() {
   );
 };
 
-function NavBar() {
-  return (
-    <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-      <Container className="gap-2">
-        <Link className="navbar-brand" to="/">Hexlet Chat</Link>
-        <LogOut />
-      </Container>
-    </Navbar>
-  );
-};
+const NavBar = () => (
+  <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+    <Container className="gap-2">
+      <Link className="navbar-brand" to="/">Hexlet Chat</Link>
+      <LogOut />
+    </Container>
+  </Navbar>
+);
 
 export default NavBar;

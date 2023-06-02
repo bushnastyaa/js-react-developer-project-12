@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import useChat from '../../hooks/useChat';
 import { selectors } from '../../slices/channelsSlice.js';
 
-function Rename({ onHide }) {
+const Rename = ({ onHide }) => {
   const [show, setShow] = useState(true);
   const channelsName = useSelector(selectors.selectAll).map(({ name }) => name);
   const inputRef = useRef(null);
@@ -52,7 +52,7 @@ function Rename({ onHide }) {
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} autoComplete="off">
-          <Form.Control 
+          <Form.Control
             className="mb-2"
             type="text"
             name="name"

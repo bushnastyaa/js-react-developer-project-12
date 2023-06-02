@@ -5,7 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 import useChat from '../../hooks/useChat';
 
-function Remove({ onHide }) {
+const Remove = ({ onHide }) => {
   const [show, setShow] = useState(true);
   const channelId = useSelector(({ modal }) => modal.channelId);
   const { removeChannel } = useChat();

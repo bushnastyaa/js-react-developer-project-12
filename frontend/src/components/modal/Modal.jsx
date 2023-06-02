@@ -5,7 +5,7 @@ import Add from './Add.jsx';
 import Rename from './Rename.jsx';
 import Remove from './Remove.jsx';
 
-function Modal(props) {
+const Modal = (props) => {
   const type = useSelector(({ modal }) => modal.type);
   const modal = {
     addChannel: Add,

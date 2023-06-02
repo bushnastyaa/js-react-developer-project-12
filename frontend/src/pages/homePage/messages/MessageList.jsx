@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-function MessageList({ messages }) {
+const MessageList = ({ messages }) => {
   const messageRef = useRef(null);
   const lastmessage = messages[messages.length - 1];
 

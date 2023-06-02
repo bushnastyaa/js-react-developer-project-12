@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import useChat from '../../hooks/useChat';
 
-function Add({ onHide }) {
+const Add = ({ onHide }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(true);
   const { channels, channelId } = useSelector((state) => ({
@@ -58,7 +58,7 @@ function Add({ onHide }) {
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} autoComplete="off">
-          <Form.Control 
+          <Form.Control
             className="mb-2"
             type="text"
             name="name"
