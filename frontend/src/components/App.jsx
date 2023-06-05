@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import useAuth from '../hooks/useAuth';
 import { AuthProvider } from '../contexts/AuthContext.jsx';
@@ -47,6 +48,7 @@ const App = ({ socket }) => (
 
       </div>
     </BrowserRouter>
+    <ToastContainer />
   </AuthProvider>
 );
 
