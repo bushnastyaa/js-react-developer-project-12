@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
+import { useRollbar } from '@rollbar/react';
 
 import useChat from '../../hooks/useChat';
 
@@ -24,6 +25,7 @@ const Rename = ({ onHide }) => {
   const inputRef = useRef(null);
   const { renameChannel } = useChat();
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -56,6 +58,7 @@ const Rename = ({ onHide }) => {
         const filteredName = leoProfanity.clean(newName);
         renameChannel({ id, name: filteredName }, submitCb);
       } catch (err) {
+        rollbar.error(err);
         toast.error(t('errors.noConnection'));
       }
     },

@@ -11,6 +11,7 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
+import { useRollbar } from '@rollbar/react';
 
 const FormLogin = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -19,6 +20,7 @@ const FormLogin = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -53,6 +55,7 @@ const FormLogin = () => {
         if (err.isAxiosError && err.response.status === 401) {
           inputRef.current.select();
           setAuthFailed(true);
+          rollbar.err(err);
           return;
         }
 
@@ -60,6 +63,7 @@ const FormLogin = () => {
           inputRef.current.select();
           setAuthFailed(true);
           setExistingUser(true);
+          rollbar.err(err);
           return;
         }
 

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import useChat from '../../hooks/useChat';
 
@@ -11,6 +12,7 @@ const Remove = ({ onHide }) => {
   const channelId = useSelector(({ modal }) => modal.channelId);
   const { removeChannel } = useChat();
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const handleClose = () => {
     setShow(false);
@@ -23,7 +25,12 @@ const Remove = ({ onHide }) => {
   };
 
   const handleRemove = () => {
-    removeChannel(channelId, submitCb);
+    try {
+      removeChannel(channelId, submitCb);
+    } catch (err) {
+      rollbar.error(err);
+      toast.error(t('errors.noConnection'));
+    }
   };
 
   return (

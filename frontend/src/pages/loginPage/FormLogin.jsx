@@ -11,6 +11,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
+import { useRollbar } from '@rollbar/react';
 
 const FormLogin = () => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -18,6 +19,7 @@ const FormLogin = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -42,8 +44,9 @@ const FormLogin = () => {
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
+          rollbar.error(err);
           inputRef.current.select();
+          setAuthFailed(true);
           return;
         }
 

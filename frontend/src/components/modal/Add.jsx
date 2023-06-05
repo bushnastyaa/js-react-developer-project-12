@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
+import { useRollbar } from '@rollbar/react';
 
 import { selectors } from '../../slices/channelsSlice.js';
 import useChat from '../../hooks/useChat';
@@ -19,6 +20,7 @@ const Add = ({ onHide }) => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
   const { addChannel } = useChat();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -50,6 +52,7 @@ const Add = ({ onHide }) => {
       try {
         addChannel(leoProfanity.clean(name), submitCb);
       } catch (err) {
+        rollbar.error(err);
         toast.error(t('errors.noConnection'));
       }
     },
