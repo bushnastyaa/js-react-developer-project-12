@@ -34,7 +34,7 @@ const init = async () => {
   return (
     <React.StrictMode>
       <ProviderRollBar config={rollbarConfig}>
-        <ErrorBoundary errorMessage="Error in React render">
+        <ErrorBoundary errorMessage="Error in the app">
           <Provider store={store}>
             <I18nextProvider i18n={i18n}>
               <App socket={socket} />

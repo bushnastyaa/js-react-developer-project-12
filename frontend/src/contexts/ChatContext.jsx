@@ -1,5 +1,5 @@
-import React, { 
-  createContext, 
+import React, {
+  createContext,
   useEffect,
   useMemo,
 } from 'react';
@@ -10,7 +10,7 @@ import { actions as messagesActions } from '../slices/messagesSlice.js';
 
 export const ChatContext = createContext({});
 
-export function ChatProvider({ socket, children }) {
+export const ChatProvider = ({ socket, children }) => {
   useEffect(() => {
     socket.on('addMessage', (payload) => {
       store.dispatch(messagesActions.addMessage(payload));
@@ -66,9 +66,9 @@ export function ChatProvider({ socket, children }) {
   };
 
   const value = useMemo(() => ({
-    addChannel, 
-    renameChannel, 
-    removeChannel, 
+    addChannel,
+    renameChannel,
+    removeChannel,
     sendMessage,
   }));
 

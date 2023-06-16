@@ -9,9 +9,9 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import routes from '../../routes/routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
-import { useRollbar } from '@rollbar/react';
 
 const FormLogin = () => {
   const [authFailed, setAuthFailed] = useState(false);
