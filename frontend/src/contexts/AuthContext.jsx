@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const value = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
 
   return (

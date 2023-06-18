@@ -49,6 +49,7 @@ export const ChatProvider = ({ socket, children }) => {
     socket.emit('addMessage', data);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const value = useMemo(() => ({
     addChannel,
     renameChannel,
