@@ -19,14 +19,11 @@ const Remove = ({ onHide }) => {
     onHide();
   };
 
-  const submitCb = () => {
-    handleClose();
-    toast.success(t('modal.removed'));
-  };
-
   const handleRemove = () => {
     try {
-      removeChannel(channelId, submitCb);
+      removeChannel(channelId);
+      handleClose();
+      toast.success(t('modal.removed'));
     } catch (err) {
       rollbar.error(err);
       toast.error(t('errors.noConnection'));

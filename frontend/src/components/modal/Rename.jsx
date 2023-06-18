@@ -45,18 +45,15 @@ const Rename = ({ onHide }) => {
     onHide();
   };
 
-  const submitCb = () => {
-    handleClose();
-    toast.success(t('modal.renamed'));
-  };
-
   const formik = useFormik({
     initialValues: { name },
     validationSchema,
     onSubmit: ({ name: newName }) => {
       try {
         const filteredName = leoProfanity.clean(newName);
-        renameChannel({ id, name: filteredName }, submitCb);
+        renameChannel({ id, name: filteredName });
+        handleClose();
+        toast.success(t('modal.renamed'));
       } catch (err) {
         rollbar.error(err);
         toast.error(t('errors.noConnection'));

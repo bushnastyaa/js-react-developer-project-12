@@ -40,17 +40,14 @@ const Add = ({ onHide }) => {
     onHide();
   };
 
-  const submitCb = () => {
-    handleClose();
-    toast.success(t('modal.created'));
-  };
-
   const formik = useFormik({
     initialValues: { name: '' },
     validationSchema,
     onSubmit: ({ name }) => {
       try {
-        addChannel(leoProfanity.clean(name), submitCb);
+        addChannel(leoProfanity.clean(name));
+        handleClose();
+        toast.success(t('modal.created'));
       } catch (err) {
         rollbar.error(err);
         toast.error(t('errors.noConnection'));

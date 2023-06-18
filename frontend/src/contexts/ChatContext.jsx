@@ -30,35 +30,19 @@ export const ChatProvider = ({ socket, children }) => {
     });
   }, [socket]);
 
-  const addChannel = (name, cb) => {
+  const addChannel = (name) => {
     socket.emit('addChannel', { name }, (response) => {
-      const { status, data: { id } } = response;
-
-      if (status === 'ok') {
-        store.dispatch(channelsActions.setCurrentChannel(id));
-        cb();
-      }
+      const { data: { id } } = response;
+      store.dispatch(channelsActions.setCurrentChannel(id));
     });
   };
 
-  const renameChannel = ({ id, name }, cb) => {
-    socket.emit('renameChannel', { id, name }, (response) => {
-      const { status } = response;
-
-      if (status === 'ok') {
-        cb();
-      }
-    });
+  const renameChannel = ({ id, name }) => {
+    socket.emit('renameChannel', { id, name });
   };
 
-  const removeChannel = (id, cb) => {
-    socket.emit('removeChannel', { id }, (response) => {
-      const { status } = response;
-
-      if (status === 'ok') {
-        cb();
-      }
-    });
+  const removeChannel = (id) => {
+    socket.emit('removeChannel', { id });
   };
 
   const sendMessage = (data) => {
