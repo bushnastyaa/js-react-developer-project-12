@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 
 import SignUpForm from './SignUpForm.jsx';
+import avatar from './avatar.jpg';
 
 const SignUpPage = () => (
   <Container fluid className="h-100">
@@ -16,7 +17,7 @@ const SignUpPage = () => (
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
             <Col className="col-12 d-flex align-items-center justify-content-center" md={6}>
-              <Image className="rounded-circle" src="./avatar.jpg" alt="Enter" />
+              <Image className="rounded-circle" src={avatar} alt="Signup" />
             </Col>
             <SignUpForm />
           </Card.Body>

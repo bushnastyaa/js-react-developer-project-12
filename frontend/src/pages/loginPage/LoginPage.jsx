@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import FormLogin from './FormLogin.jsx';
+import mountain from './mountain.jpg';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -21,7 +22,7 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col className="col-12 d-flex align-items-center justify-content-center" md={6}>
-                <Image className="rounded-circle" src="./mountain.png" alt="Enter" />
+                <Image className="rounded-circle" src={mountain} alt="Enter" />
               </Col>
               <FormLogin />
             </Card.Body>
