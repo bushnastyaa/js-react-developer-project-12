@@ -22,6 +22,7 @@ const Messages = () => {
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0 fw-bold">
             #
+            {' '}
             {currentChannel?.name}
           </p>
           <span className="text-muted">{ t('chat.count', { count: messages.length }) }</span>

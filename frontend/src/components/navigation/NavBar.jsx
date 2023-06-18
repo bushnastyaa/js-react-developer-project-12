@@ -12,7 +12,7 @@ const LogOut = () => {
   return (
     loggedIn
       ? (
-        <Button variant="outline-secondary" size="sm" onClick={logOut}>
+        <Button className="btn-primary" onClick={logOut}>
           { t('logout') }
         </Button>
       )

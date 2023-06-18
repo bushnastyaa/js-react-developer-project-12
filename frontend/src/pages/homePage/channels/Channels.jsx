@@ -16,12 +16,12 @@ const Channels = ({ handleOpen }) => {
   const handleRemove = (id) => handleOpen('removeChannel', id);
 
   return (
-    <Col xs={4} md={3} className="border-end p-0 bg-light d-flex flex-column">
-      <div className="ps-3 pe-2 pt-5 pb-2 d-flex justify-content-between align-items-center">
-        <div className="text-truncate"><b>{t('chat.channels')}</b></div>
+    <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+      <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
+        <b>{t('chat.channels')}</b>
         <Button
           variant="link"
-          className="p-0 text-primary btn btn-group-vertical"
+          className="p-0 text-primary btn-group-vertical"
           onClick={handleAdd()}
         >
           <PlusSquare size={20} />
