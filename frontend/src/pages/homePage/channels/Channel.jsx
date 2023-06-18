@@ -19,15 +19,15 @@ const Channel = ({
   };
 
   return (
-    <li className="nav-item w-100 my-1">
+    <li className="nav-item w-100">
       {removable ? (
         <Dropdown as={ButtonGroup} className="w-100">
           <Button variant={variant} className="text-start w-100 text-truncate" onClick={handleSelect(id)}>
-            <span className="text-bg-primary rounded px-1 me-1 fw-light small">#</span>
+            <span className="me-1">#</span>
             {name}
           </Button>
 
-          <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
+          <Dropdown.Toggle split variant={variant} className="border-0">
             <span className="visually-hidden">{t('chat.manage')}</span>
           </Dropdown.Toggle>
 
@@ -37,8 +37,8 @@ const Channel = ({
           </Dropdown.Menu>
         </Dropdown>
       ) : (
-        <Button variant={variant} className="text-start w-100 text-truncate" onClick={handleSelect(id)}>
-          <span className="text-bg-primary rounded me-1 fw-light px-1 small">#</span>
+        <Button variant={variant} className="w-100 rounded-0 text-start" onClick={handleSelect(id)}>
+          <span className="me-1">#</span>
           {name}
         </Button>
       )}
