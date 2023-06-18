@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import useChat from '../../../hooks/useChat';
 
 const MessageForm = () => {
@@ -17,7 +18,8 @@ const MessageForm = () => {
     initialValues: { message: '' },
     onSubmit: ({ message }, { resetForm }) => {
       if (message !== '') {
-        const data = { body: '', channelId: currentChannelId, username };
+        const filteredMessage = leoProfanity.clean(message);
+        const data = { body: filteredMessage, channelId: currentChannelId, username };
         sendMessage(data);
         resetForm();
       }
