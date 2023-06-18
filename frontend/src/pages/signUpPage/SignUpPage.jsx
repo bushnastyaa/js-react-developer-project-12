@@ -15,10 +15,10 @@ const SignUpPage = () => (
     <Row className="justify-content-center align-content-center h-100">
       <Col className="col-12" md={8} xxl={6}>
         <Card className="shadow-sm">
-          <Card.Body className="row p-5">
-            <Col className="col-12 d-flex align-items-center justify-content-center" md={6}>
+          <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+            <div>
               <Image className="rounded-circle" src={avatar} alt="Signup" />
-            </Col>
+            </div>
             <SignUpForm />
           </Card.Body>
         </Card>

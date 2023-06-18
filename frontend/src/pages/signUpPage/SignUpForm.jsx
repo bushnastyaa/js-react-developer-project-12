@@ -80,7 +80,7 @@ const FormLogin = () => {
   };
 
   return (
-    <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+    <Form className="w-50" onSubmit={formik.handleSubmit}>
       <h1 className="text-center mb-4">{t('signup.header')}</h1>
       <Form.Group className="form-floating mb-3" controlId="username">
         <Form.Control
@@ -98,7 +98,7 @@ const FormLogin = () => {
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group className="form-floating mb-4" controlId="password">
+      <Form.Group className="form-floating mb-3" controlId="password">
         <Form.Control
           name="password"
           type="password"
@@ -135,7 +135,7 @@ const FormLogin = () => {
       <Button
         type="submit"
         variant="outline-primary"
-        className="w-100 mb-3"
+        className="w-100"
         disabled={formik.isSubmitting}
       >
         {t('signup.signup')}

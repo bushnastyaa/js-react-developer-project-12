@@ -64,6 +64,7 @@ const FormLogin = () => {
           type="text"
           placeholder={t('login.username')}
           autoComplete="username"
+          ref={inputRef}
           onChange={formik.handleChange}
           value={formik.values.username}
           isInvalid={authFailed}
@@ -78,7 +79,6 @@ const FormLogin = () => {
           type="password"
           placeholder={t('login.password')}
           autoComplete="current-password"
-          ref={inputRef}
           onChange={formik.handleChange}
           value={formik.values.password}
           isInvalid={authFailed}
