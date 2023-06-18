@@ -12,7 +12,7 @@ import en from './locales/en';
 import ru from './locales/ru';
 
 const init = async () => {
-  const socket = io('/');
+  const socket = io();
   const clear = leoProfanity.getDictionary('ru');
   leoProfanity.add(clear);
   const i18n = i18next.createInstance();
