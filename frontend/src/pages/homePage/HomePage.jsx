@@ -24,7 +24,7 @@ const HomePage = () => {
         dispatch(channelsActions.addChannels(channels));
         dispatch(channelsActions.setCurrentChannel(currentChannelId));
       });
-  }, [getAuthHeader, dispatch]);
+  });
 
   const handleOpen = (type, id = null) => {
     dispatch(open({ type, id }));

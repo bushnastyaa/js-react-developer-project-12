@@ -2,34 +2,32 @@ import React, {
   createContext,
   useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
 
+import store from '../slices/index.js';
 import { actions as channelsActions } from '../slices/channelsSlice.js';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
 
 export const ChatContext = createContext({});
 
 export const ChatProvider = ({ socket, children }) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
     socket.on('addMessage', (payload) => {
-      dispatch(messagesActions.addMessage(payload));
+      store.dispatch(messagesActions.addMessage(payload));
     });
 
     socket.on('addChannel', (payload) => {
-      dispatch(channelsActions.addChannel(payload));
+      store.dispatch(channelsActions.addChannel(payload));
     });
 
     socket.on('renameChannel', ({ id, name }) => {
-      dispatch(channelsActions.renameChannel({ id, changes: { name } }));
+      store.dispatch(channelsActions.renameChannel({ id, changes: { name } }));
     });
 
     socket.on('removeChannel', ({ id }) => {
-      dispatch(channelsActions.setChannelId(id));
-      dispatch(channelsActions.removeChannel(id));
+      store.dispatch(channelsActions.setChannelId(id));
+      store.dispatch(channelsActions.removeChannel(id));
     });
-  }, [dispatch, socket]);
+  }, [socket]);
 
   const sendMessage = (data) => {
     socket.emit('addMessage', data);
@@ -38,7 +36,7 @@ export const ChatProvider = ({ socket, children }) => {
   const addChannel = (name) => {
     socket.emit('addChannel', { name }, (response) => {
       const { data: { id } } = response;
-      dispatch(channelsActions.setCurrentChannel(id));
+      store.dispatch(channelsActions.setCurrentChannel(id));
     });
   };
 
