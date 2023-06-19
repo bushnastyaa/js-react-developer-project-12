@@ -50,10 +50,10 @@ export const ChatProvider = ({ socket, children }) => {
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
+    sendMessage,
     addChannel,
     renameChannel,
     removeChannel,
-    sendMessage,
   };
 
   return (
