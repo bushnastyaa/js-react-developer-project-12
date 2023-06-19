@@ -9,20 +9,23 @@ import fetchData from '../../routes/fetchData';
 import Channels from './channels/Channels.jsx';
 import Messages from './messages/Messages.jsx';
 import Modal from '../../components/modal/Modal.jsx';
+import useChat from '../../hooks/useChat';
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const { connectSocket } = useChat();
 
   useEffect(() => {
     fetchData()
       .then((data) => {
+        connectSocket();
         const { channels, currentChannelId, messages } = data;
 
         dispatch(messagesActions.addMessages(messages));
         dispatch(channelsActions.addChannels(channels));
         dispatch(channelsActions.setCurrentChannel(currentChannelId));
       });
-  });
+  }, [connectSocket, dispatch]);
 
   const handleOpen = (type, id = null) => {
     dispatch(open({ type, id }));

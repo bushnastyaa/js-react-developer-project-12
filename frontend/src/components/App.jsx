@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 
 import useAuth from '../hooks/useAuth';
 import { AuthProvider } from '../contexts/AuthContext.jsx';
@@ -48,7 +48,18 @@ const App = ({ socket }) => (
 
       </div>
     </BrowserRouter>
-    <ToastContainer />
+    <ToastContainer
+      position="top-right"
+      autoClose={2000}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Slide}
+    />
   </AuthProvider>
 );
 
