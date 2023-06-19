@@ -103,7 +103,7 @@ const FormLogin = () => {
           name="password"
           type="password"
           placeholder={t('signup.password')}
-          autoComplete="new-password"
+          autoComplete="password"
           onChange={formik.handleChange}
           value={formik.values.password}
           isInvalid={(!!formik.errors.password && formik.touched.password) || authFailed}

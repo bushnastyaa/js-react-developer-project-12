@@ -48,7 +48,7 @@ const MessageForm = () => {
             type="submit"
             variant="link"
             className="btn-group-vertical text-dark"
-            disabled={formik.isSubmitting || formik.errors.body}
+            disabled={!formik.values.message.length > 0}
           >
             <ArrowRightSquare size="20" />
             <span className="visually-hidden">{t('modal.send')}</span>

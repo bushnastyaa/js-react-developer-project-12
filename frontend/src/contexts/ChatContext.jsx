@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useEffect,
-  useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -51,13 +50,13 @@ export const ChatProvider = ({ socket, children }) => {
     socket.emit('addMessage', data);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const value = useMemo(() => ({
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const value = {
     addChannel,
     renameChannel,
     removeChannel,
     sendMessage,
-  }));
+  };
 
   return (
     <ChatContext.Provider value={value}>
