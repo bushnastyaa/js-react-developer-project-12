@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useEffect,
   useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,6 +12,25 @@ export const ChatContext = createContext({});
 
 export const ChatProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on('addMessage', (payload) => {
+      dispatch(messagesActions.addMessage(payload));
+    });
+
+    socket.on('addChannel', (payload) => {
+      dispatch(channelsActions.addChannel(payload));
+    });
+
+    socket.on('renameChannel', ({ id, name }) => {
+      dispatch(channelsActions.renameChannel({ id, changes: { name } }));
+    });
+
+    socket.on('removeChannel', ({ id }) => {
+      dispatch(channelsActions.setChannelId(id));
+      dispatch(channelsActions.removeChannel(id));
+    });
+  }, [dispatch, socket]);
 
   const context = useMemo(() => {
     const sendMessage = (data) => {
@@ -32,27 +52,7 @@ export const ChatProvider = ({ socket, children }) => {
       socket.emit('removeChannel', { id });
     };
 
-    const connectSocket = () => {
-      socket.on('addMessage', (payload) => {
-        dispatch(messagesActions.addMessage(payload));
-      });
-
-      socket.on('addChannel', (payload) => {
-        dispatch(channelsActions.addChannel(payload));
-      });
-
-      socket.on('renameChannel', ({ id, name }) => {
-        dispatch(channelsActions.renameChannel({ id, changes: { name } }));
-      });
-
-      socket.on('removeChannel', ({ id }) => {
-        dispatch(channelsActions.setChannelId(id));
-        dispatch(channelsActions.removeChannel(id));
-      });
-    };
-
     return ({
-      connectSocket,
       addChannel,
       renameChannel,
       removeChannel,
