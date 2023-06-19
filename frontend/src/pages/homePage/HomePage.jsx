@@ -24,7 +24,7 @@ const HomePage = () => {
       });
   });
 
-  const handleOpen = (type, id = null) => () => {
+  const handleOpen = (type, id = null) => {
     dispatch(open({ type, id }));
   };
 
