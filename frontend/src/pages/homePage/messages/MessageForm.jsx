@@ -4,37 +4,42 @@ import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
-import leoProfanity from 'leo-profanity';
+import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 import useChat from '../../../hooks/useChat';
 
 const MessageForm = () => {
   const currentChannelId = useSelector(({ channels }) => channels.currentChannelId);
   const { sendMessage } = useChat();
   const inputRef = useRef(null);
+  const rollbar = useRollbar();
   const { username } = JSON.parse(localStorage.getItem('userInfo'));
   const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: { message: '' },
-    onSubmit: ({ message }, { resetForm }) => {
-      if (message !== '') {
-        const filteredMessage = leoProfanity.clean(message);
-        const data = { body: filteredMessage, channelId: currentChannelId, username };
+    onSubmit: ({ message }) => {
+      try {
+        const data = { body: message, channelId: currentChannelId, username };
         sendMessage(data);
-        resetForm();
+        formik.resetForm();
+      } catch (err) {
+        toast.error(t('errors.noConnection'));
+        rollbar.error(err);
       }
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [formik]);
+  }, [formik.isSubmitting, currentChannelId]);
 
   return (
     <div className="mt-auto px-5 py-3">
       <Form className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
         <InputGroup>
           <Form.Control
+            type="text"
             name="messsage"
             placeholder={t('chat.message')}
             aria-label={t('chat.newMessage')}
