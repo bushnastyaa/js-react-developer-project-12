@@ -17,7 +17,7 @@ const Modal = (props) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    type && <Component {...props} />
+    Component ? <Component {...props} /> : null
   );
 };
 
