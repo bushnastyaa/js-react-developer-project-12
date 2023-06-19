@@ -13,8 +13,8 @@ import ru from './locales/ru';
 
 const init = async () => {
   const socket = io();
-  const clear = leoProfanity.getDictionary('ru');
-  leoProfanity.add(clear);
+  const profanityFilter = leoProfanity.getDictionary('ru');
+  leoProfanity.add(profanityFilter);
   const i18n = i18next.createInstance();
 
   await i18n

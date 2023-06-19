@@ -10,13 +10,15 @@ import Channels from './channels/Channels.jsx';
 import Messages from './messages/Messages.jsx';
 import Modal from '../../components/modal/Modal.jsx';
 import useChat from '../../hooks/useChat';
+import useAuth from '../../hooks/useAuth';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const { connectSocket } = useChat();
+  const { getAuthHeader } = useAuth();
 
   useEffect(() => {
-    fetchData()
+    fetchData(getAuthHeader)
       .then((data) => {
         connectSocket();
         const { channels, currentChannelId, messages } = data;
@@ -25,7 +27,7 @@ const HomePage = () => {
         dispatch(channelsActions.addChannels(channels));
         dispatch(channelsActions.setCurrentChannel(currentChannelId));
       });
-  }, [connectSocket, dispatch]);
+  }, [connectSocket, getAuthHeader, dispatch]);
 
   const handleOpen = (type, id = null) => {
     dispatch(open({ type, id }));

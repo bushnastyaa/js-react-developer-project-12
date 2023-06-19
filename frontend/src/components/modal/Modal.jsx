@@ -5,8 +5,8 @@ import Add from './Add.jsx';
 import Rename from './Rename.jsx';
 import Remove from './Remove.jsx';
 
-const Modal = (props) => {
-  const type = useSelector(({ modal }) => modal.type);
+const ModalComponent = (props) => {
+  const { type } = props;
   const modal = {
     addChannel: Add,
     renameChannel: Rename,
@@ -17,7 +17,18 @@ const Modal = (props) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    Component ? <Component {...props} /> : null
+    <Component {...props} />
+  );
+};
+
+const Modal = (props) => {
+  const type = useSelector(({ modal }) => modal.type);
+
+  return (
+    <>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      { type && <ModalComponent type={type} {...props} /> }
+    </>
   );
 };
 

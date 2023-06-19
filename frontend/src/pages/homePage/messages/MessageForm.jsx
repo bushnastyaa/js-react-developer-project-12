@@ -5,6 +5,7 @@ import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { useRollbar } from '@rollbar/react';
 import useChat from '../../../hooks/useChat';
 
@@ -20,7 +21,8 @@ const MessageForm = () => {
     initialValues: { message: '' },
     onSubmit: ({ message }) => {
       try {
-        const data = { body: message, channelId: currentChannelId, username };
+        const filteredMessage = leoProfanity.clean(message);
+        const data = { body: filteredMessage, channelId: currentChannelId, username };
         sendMessage(data);
         formik.resetForm();
       } catch (err) {
