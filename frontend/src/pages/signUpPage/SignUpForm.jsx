@@ -113,7 +113,7 @@ const FormLogin = () => {
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group className="form-floating mb-4" controlId="password">
+      <Form.Group className="form-floating mb-4" controlId="passwordConfirm">
         <Form.Control
           name="passwordConfirm"
           type="password"

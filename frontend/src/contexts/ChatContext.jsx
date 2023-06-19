@@ -1,8 +1,9 @@
 import React, {
   createContext,
   useEffect,
+  useMemo,
 } from 'react';
-import store from '../slices';
+import { useDispatch } from 'react-redux';
 
 import { actions as channelsActions } from '../slices/channelsSlice.js';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
@@ -10,29 +11,31 @@ import { actions as messagesActions } from '../slices/messagesSlice.js';
 export const ChatContext = createContext({});
 
 export const ChatProvider = ({ socket, children }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     socket.on('addMessage', (payload) => {
-      store.dispatch(messagesActions.addMessage(payload));
+      dispatch(messagesActions.addMessage(payload));
     });
 
     socket.on('addChannel', (payload) => {
-      store.dispatch(channelsActions.addChannel(payload));
+      dispatch(channelsActions.addChannel(payload));
     });
 
     socket.on('renameChannel', ({ id, name }) => {
-      store.dispatch(channelsActions.renameChannel({ id, changes: { name } }));
+      dispatch(channelsActions.renameChannel({ id, changes: { name } }));
     });
 
     socket.on('removeChannel', ({ id }) => {
-      store.dispatch(channelsActions.setChannelId(id));
-      store.dispatch(channelsActions.removeChannel(id));
+      dispatch(channelsActions.setChannelId(id));
+      dispatch(channelsActions.removeChannel(id));
     });
-  }, [socket]);
+  }, [dispatch, socket]);
 
   const addChannel = (name) => {
     socket.emit('addChannel', { name }, (response) => {
       const { data: { id } } = response;
-      store.dispatch(channelsActions.setCurrentChannel(id));
+      dispatch(channelsActions.setCurrentChannel(id));
     });
   };
 
@@ -48,13 +51,13 @@ export const ChatProvider = ({ socket, children }) => {
     socket.emit('addMessage', data);
   };
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const value = {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const value = useMemo(() => ({
     addChannel,
     renameChannel,
     removeChannel,
     sendMessage,
-  };
+  }));
 
   return (
     <ChatContext.Provider value={value}>
