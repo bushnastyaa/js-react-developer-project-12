@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useRollbar } from '@rollbar/react';
 import routes from '../../routes/routes.js';
@@ -95,7 +95,12 @@ const FormLogin = () => {
           disabled={formik.isSubmitting}
         />
         <Form.Label>{t('signup.username')}</Form.Label>
-        <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>
+        {(existingUser || !!formik.errors.username)
+          && (
+          <Form.Control.Feedback type="invalid" tooltip>
+            {existingUser ? t('signup.alreadyExists') : formik.errors.username}
+          </Form.Control.Feedback>
+          )}
       </Form.Group>
 
       <Form.Group className="form-floating mb-3" controlId="password">
@@ -103,7 +108,7 @@ const FormLogin = () => {
           name="password"
           type="password"
           placeholder={t('signup.password')}
-          autoComplete="password"
+          autoComplete="new-password"
           onChange={formik.handleChange}
           value={formik.values.password}
           isInvalid={(!!formik.errors.password && formik.touched.password) || authFailed}
@@ -129,8 +134,6 @@ const FormLogin = () => {
         <Form.Label>{t('signup.confirmPassword')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>{formik.errors.passwordConfirm}</Form.Control.Feedback>
       </Form.Group>
-
-      {existingUser ? <Alert variant="danger">{t('signup.password')}</Alert> : null}
 
       <Button
         type="submit"
