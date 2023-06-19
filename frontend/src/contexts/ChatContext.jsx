@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useEffect,
-  useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -32,36 +31,35 @@ export const ChatProvider = ({ socket, children }) => {
     });
   }, [dispatch, socket]);
 
-  const context = useMemo(() => {
-    const sendMessage = (data) => {
-      socket.emit('addMessage', data);
-    };
+  const sendMessage = (data) => {
+    socket.emit('addMessage', data);
+  };
 
-    const addChannel = (name) => {
-      socket.emit('addChannel', { name }, (response) => {
-        const { data: { id } } = response;
-        dispatch(channelsActions.setCurrentChannel(id));
-      });
-    };
-
-    const renameChannel = ({ id, name }) => {
-      socket.emit('renameChannel', { id, name });
-    };
-
-    const removeChannel = (id) => {
-      socket.emit('removeChannel', { id });
-    };
-
-    return ({
-      addChannel,
-      renameChannel,
-      removeChannel,
-      sendMessage,
+  const addChannel = (name) => {
+    socket.emit('addChannel', { name }, (response) => {
+      const { data: { id } } = response;
+      dispatch(channelsActions.setCurrentChannel(id));
     });
-  }, [dispatch, socket]);
+  };
+
+  const renameChannel = ({ id, name }) => {
+    socket.emit('renameChannel', { id, name });
+  };
+
+  const removeChannel = (id) => {
+    socket.emit('removeChannel', { id });
+  };
+
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const value = {
+    addChannel,
+    renameChannel,
+    removeChannel,
+    sendMessage,
+  };
 
   return (
-    <ChatContext.Provider value={context}>
+    <ChatContext.Provider value={value}>
       {children}
     </ChatContext.Provider>
   );
