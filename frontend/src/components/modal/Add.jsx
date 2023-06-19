@@ -72,7 +72,7 @@ const Add = ({ onHide }) => {
             value={formik.values.name}
             onChange={formik.handleChange}
             disabled={formik.isSubmitting}
-            isInvalid={(formik.touched.name && !!formik.errors.name)}
+            isInvalid={formik.touched.name && formik.errors.name}
           />
           <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
           <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>

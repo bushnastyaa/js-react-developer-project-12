@@ -68,7 +68,7 @@ const Rename = ({ onHide }) => {
       </Modal.Header>
 
       <Modal.Body>
-        <Form onSubmit={formik.handleSubmit} autoComplete="off">
+        <Form onSubmit={formik.handleSubmit}>
           <Form.Control
             className="mb-2"
             type="text"
@@ -78,7 +78,7 @@ const Rename = ({ onHide }) => {
             value={formik.values.name}
             onChange={formik.handleChange}
             disabled={formik.isSubmitting}
-            isInvalid={(formik.touched.name && !!formik.errors.name)}
+            isInvalid={formik.touched.name && formik.errors.name}
           />
           <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
           <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
