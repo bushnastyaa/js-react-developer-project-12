@@ -3,7 +3,7 @@ import React, {
   useEffect,
 } from 'react';
 
-import store from '../slices/index.js';
+import store from '../slices';
 import { actions as channelsActions } from '../slices/channelsSlice.js';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
 
@@ -11,11 +11,11 @@ export const ChatContext = createContext({});
 
 export const ChatProvider = ({ socket, children }) => {
   useEffect(() => {
-    socket.on('addMessage', (payload) => {
+    socket.on('newMessage', (payload) => {
       store.dispatch(messagesActions.addMessage(payload));
     });
 
-    socket.on('addChannel', (payload) => {
+    socket.on('newChannel', (payload) => {
       store.dispatch(channelsActions.addChannel(payload));
     });
 
@@ -29,12 +29,8 @@ export const ChatProvider = ({ socket, children }) => {
     });
   }, [socket]);
 
-  const sendMessage = (data) => {
-    socket.emit('addMessage', data);
-  };
-
   const addChannel = (name) => {
-    socket.emit('addChannel', { name }, (response) => {
+    socket.emit('newChannel', { name }, (response) => {
       const { data: { id } } = response;
       store.dispatch(channelsActions.setCurrentChannel(id));
     });
@@ -48,12 +44,15 @@ export const ChatProvider = ({ socket, children }) => {
     socket.emit('removeChannel', { id });
   };
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const sendMessage = (data) => {
+    socket.emit('newMessage', data);
+  };
+
   const value = {
-    sendMessage,
     addChannel,
     renameChannel,
     removeChannel,
+    sendMessage,
   };
 
   return (
