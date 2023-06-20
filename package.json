@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run build --prefix frontend",
-    "start": "start-server -s ./frontend/build",
+    "start": "start-server -s frontend/build",
     "server": "start-server -a localhost",
     "postinstall": "cd frontend && npm install"
   },
