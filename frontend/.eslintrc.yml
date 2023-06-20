@@ -24,7 +24,7 @@ rules:
   react/react-in-jsx-scope: 0
   react/jsx-props-no-spreading: 1
   react-hooks/exhaustive-deps: 0
-  no-trailing-spaces: 1,
+  no-trailing-spaces: 1
   object-curly-newline: 1
   functional/no-conditional-statements: 0
   functional/no-expression-statements: 0
