@@ -9,14 +9,12 @@ import fetchData from '../../routes/fetchData';
 import Channels from './channels/Channels.jsx';
 import Messages from './messages/Messages.jsx';
 import Modal from '../../components/modal/Modal.jsx';
-import useAuth from '../../hooks/useAuth';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { getAuthHeader } = useAuth();
 
   useEffect(() => {
-    fetchData(getAuthHeader)
+    fetchData()
       .then((data) => {
         const { channels, currentChannelId, messages } = data;
 
