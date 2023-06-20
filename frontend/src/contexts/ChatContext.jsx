@@ -48,6 +48,7 @@ export const ChatProvider = ({ socket, children }) => {
     socket.emit('newMessage', data);
   };
 
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     addChannel,
     renameChannel,

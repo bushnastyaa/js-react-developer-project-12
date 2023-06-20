@@ -13,12 +13,12 @@ const MessageList = ({ messages }) => {
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
       {messages.map(({ id, username, body }) => (
-      <div key={id} className="text-break mb-2" ref={messageRef}>
-        <b>{username}</b>
-        :
-        {' '}
-        {body}
-      </div>
+        <div key={id} className="text-break mb-2" ref={messageRef}>
+          <b>{username}</b>
+          :
+          {' '}
+          {body}
+        </div>
       ))}
     </div>
   );

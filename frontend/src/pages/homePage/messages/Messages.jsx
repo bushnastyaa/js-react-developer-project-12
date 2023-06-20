@@ -13,7 +13,9 @@ const Messages = () => {
     allMessages: Object.values(state.messages.entities),
   }));
   const messages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
-  const currentChannel = useSelector((state) => channelsSelectors.selectById(state, currentChannelId));
+  const currentChannel = useSelector(
+    (state) => channelsSelectors.selectById(state, currentChannelId),
+  );
   const { t } = useTranslation();
 
   return (
@@ -21,7 +23,8 @@ const Messages = () => {
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
           <p className="m-0 fw-bold">
-            #{' '}
+            #
+            {' '}
             {currentChannel?.name}
           </p>
           <span className="text-muted">
