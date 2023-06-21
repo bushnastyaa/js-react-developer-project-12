@@ -85,7 +85,9 @@ const FormLogin = () => {
           disabled={formik.isSubmitting}
         />
         <Form.Label>{t('login.password')}</Form.Label>
-        <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {formik.errors.password ?? t('login.authFailed')}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Button

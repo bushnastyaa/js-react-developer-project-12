@@ -38,6 +38,7 @@ const FormLogin = () => {
       .required(t('signup.required')),
     passwordConfirm: Yup
       .string()
+      .required(t('signup.required'))
       .oneOf([Yup.ref('password'), null], t('signup.mustMatch')),
   });
 
@@ -127,7 +128,7 @@ const FormLogin = () => {
           onChange={formik.handleChange}
           value={formik.values.passwordConfirm}
           isInvalid={
-            (!!formik.errors.passwordConfirm && formik.touched.confirmPassword) || authFailed
+            (!!formik.errors.passwordConfirm && formik.touched.passwordConfirm) || authFailed
           }
           disabled={formik.isSubmitting}
         />
