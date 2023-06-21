@@ -3,7 +3,7 @@
 
 ## Description
 
-Simple chat application - analogue of Slack. Authorization and authentication is carried out using the [JWT](https://jwt.io/introduction) technology. Chat implemented via [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). Forms are created using the [Formik](https://www.npmjs.com/package/formik) library.
+Simple chat application - analogue of Slack. Authorization and authentication is carried out using the [JWT](https://jwt.io/introduction) technology. Chat implemented via [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). Forms are created using the [Formik](https://formik.org) library.
 
 Register with username and password. Feel free to send messages and create your own channels!
 
@@ -28,11 +28,11 @@ make start
 * React + Redux Toolkit
 * [React Router v6](https://reactrouter.com/en/v6.3.0/api)
 * [Socket](https://socket.io) 
-* [Formik](https://www.npmjs.com/package/formik)
+* [Formik](https://formik.org/)
 * [JWT](https://jwt.io/introduction)
 * [Yup](https://github.com/jquense/yup)
 * [React-i18next](https://react.i18next.com)
-* [React Toastify](https://www.npmjs.com/package/react-toastify)
+* [React Toastify](https://github.com/fkhadra/react-toastify)
 * [Leo-profanity](https://github.com/jojoee/leo-profanity)
-* [Rollbar](https://rollbar.com)
-* [React Bootstrap](https://github.com/react-bootstrap/react-bootstrap)
+* [Rollbar](https://docs.rollbar.com/docs/react)
+* [React Bootstrap](https://getbootstrap.com/)
