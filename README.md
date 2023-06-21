@@ -9,7 +9,7 @@ Register with username and password. Feel free to send messages and create your 
 
 ![Chat image](app.png)
 
-**Demo:** [js-react-developer-project-12-production-bbf1.up.railway.app](js-react-developer-project-12-production-bbf1.up.railway.app)
+**Demo:** [js-react-developer-project-12-production-bbf1.up.railway.app](https://js-react-developer-project-12-production-bbf1.up.railway.app)
 
 ## Installation
 
