@@ -20,8 +20,9 @@ const init = async () => {
   await i18n
     .use(initReactI18next)
     .init({
-      resources: { ru, en },
-      fallbackLng: 'ru',
+      resources: { en, ru },
+      lng: 'ru',
+      fallbackLng: ['en', 'ru'],
     });
 
   const rollbarConfig = {
