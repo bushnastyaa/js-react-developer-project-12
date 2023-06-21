@@ -3,7 +3,7 @@
 
 ## Description
 
-Simple chat application - analogue of Slack. Authorization and authentication are carried out using the [JWT](https://jwt.io/introduction) technology. Chat implemented via [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). Forms are created using the [Formik](https://formik.org) library.
+Real-time chat application is a simplified version of Slack chat. Implemented via [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). Authorization and authentication are carried out using the [JWT](https://jwt.io/introduction) technology. Forms are created using the [Formik](https://formik.org) library.
 
 Register with username and password. Feel free to send messages and create your own channels!
 
